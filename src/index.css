@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Lovable-inspired CRM Design System */
+
+@layer base {
+  :root {
+    /* Base colors - Clean and minimal */
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+
+    /* Card system */
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+
+    /* Lovable purple - core brand */
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 20% 98%;
+    --primary-glow: 262.1 83.3% 67.8%;
+
+    /* Elegant secondary */
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+
+    /* Sophisticated muted tones */
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    /* Accent system */
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+
+    /* Status colors for lead temperature */
+    --cold: 221.2 83.2% 53.3%;
+    --warm: 25 95% 53%;
+    --hot: 0 84.2% 60.2%;
+
+    /* Destructive */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    /* Borders and inputs */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262.1 83.3% 57.8%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(262.1 83.3% 57.8%), hsl(220.9 39.3% 11%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(220 14.3% 95.9%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 14.3% 95.9%));
+
+    /* Shadows */
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow-modal: 0 25px 50px -12px hsl(0 0% 0% / 0.25);
+    --shadow-sidebar: 2px 0 20px -5px hsl(0 0% 0% / 0.1);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.5rem;
+
+    /* Sidebar - dark theme */
+    --sidebar-background: 224 71.4% 4.1%;
+    --sidebar-foreground: 210 20% 98%;
+    --sidebar-primary: 262.1 83.3% 57.8%;
+    --sidebar-primary-foreground: 224 71.4% 4.1%;
+    --sidebar-accent: 215 27.9% 16.9%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 215 27.9% 16.9%;
+    --sidebar-ring: 262.1 83.3% 57.8%;
+  }
+
+  .dark {
+    /* Dark theme - elegant and modern */
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+    
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 20% 98%;
+    
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 262.1 83.3% 57.8%;
+    
+    --sidebar-background: 224 71.4% 4.1%;
+    --sidebar-foreground: 210 20% 98%;
+    --sidebar-primary: 262.1 83.3% 57.8%;
+    --sidebar-primary-foreground: 224 71.4% 4.1%;
+    --sidebar-accent: 215 27.9% 16.9%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 215 27.9% 16.9%;
+    --sidebar-ring: 262.1 83.3% 57.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  /* Custom scrollbar - Much thinner and elegant - Global but can be overridden */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
+
+  ::-webkit-scrollbar-corner {
+    @apply bg-transparent;
+  }
+
+  /* Hide scrollbar for main body to avoid conflicts */
+  body::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  body::-webkit-scrollbar-track {
+    @apply bg-muted/20;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+}
+
+@layer components {
+  /* Card variants for CRM */
+  .card-gradient {
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+  
+  .card-lead {
+    @apply bg-card border border-border rounded-lg p-4 transition-all duration-200 hover:shadow-md cursor-pointer;
+  }
+  
+  .card-lead-cold {
+    @apply border-l-4 border-l-[hsl(var(--cold))];
+  }
+  
+  .card-lead-warm {
+    @apply border-l-4 border-l-[hsl(var(--warm))];
+  }
+  
+  .card-lead-hot {
+    @apply border-l-4 border-l-[hsl(var(--hot))];
+  }
+  
+  /* Kanban column styles - Oscar-worthy design */
+  .kanban-column {
+    @apply bg-gradient-to-b from-card to-muted/20 border border-border/50 rounded-2xl p-6 min-h-[650px] transition-all duration-300 hover:shadow-lg backdrop-blur-sm;
+    box-shadow: 0 4px 20px -4px hsl(var(--primary) / 0.1);
+  }
+  
+  .kanban-column:hover {
+    @apply border-primary/30 shadow-xl;
+    transform: translateY(-2px);
+  }
+
+  .kanban-column-header {
+    @apply sticky top-0 bg-card/95 backdrop-blur-sm border-b border-border/50 rounded-t-xl -mx-6 -mt-6 px-6 py-4 mb-6 z-10;
+  }
+
+  .funnel-header-fixed {
+    @apply sticky top-0 z-30 bg-background/95 backdrop-blur-md border-b border-border/50;
+  }
+  
+  /* Button variants */
+  .btn-gradient {
+    background: var(--gradient-primary);
+    @apply text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+  
+  /* Modal backdrop */
+  .modal-backdrop {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+  }
+
+  /* Grid pattern for hero section */
+  .bg-grid-pattern {
+    background-image: radial-gradient(circle at 1px 1px, hsl(var(--primary) / 0.15) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+
+  /* Kanban scrollbar - isolado e sem conflitos */
+  .kanban-scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+    /* Força o scroll a ficar dentro do container */
+    position: relative;
+    contain: layout style size;
+  }
+
+  .kanban-scroll-container::-webkit-scrollbar {
+    height: 8px;
+    width: 0; /* Remove qualquer scroll vertical */
+  }
+
+  .kanban-scroll-container::-webkit-scrollbar-track {
+    background: hsl(var(--muted) / 0.1);
+    border-radius: 4px;
+  }
+
+  .kanban-scroll-container::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 4px;
+    border: 1px solid hsl(var(--background));
+  }
+
+  .kanban-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+
+  /* Garante que elementos arrastados não saem da área */
+  .kanban-scroll-container::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
