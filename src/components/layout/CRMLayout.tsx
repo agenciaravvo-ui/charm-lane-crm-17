@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { CRMSidebar } from "./CRMSidebar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { UserButton } from "@/components/auth/UserButton";
 
 interface CRMLayoutProps {
   children: ReactNode;
@@ -20,6 +21,7 @@ export function CRMLayout({ children }: CRMLayoutProps) {
               Simple CRM
             </div>
           </div>
+          <UserButton />
         </header>
 
         {/* Main content - padding condicional */}
