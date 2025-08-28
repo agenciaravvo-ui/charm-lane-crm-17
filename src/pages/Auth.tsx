@@ -76,21 +76,24 @@ export default function Auth() {
   };
 
   const onSignUp = async (values: z.infer<typeof signUpSchema>) => {
+    console.log('Tentando cadastrar usuário:', values.email);
     setLoading(true);
     const { error } = await signUp(values.email, values.password, values.fullName);
     
+    console.log('Erro retornado:', error);
+    
     if (error) {
+      console.error('Erro completo no cadastro:', error);
       toast({
         variant: "destructive",
         title: "Erro no cadastro",
-        description: error.message === "User already registered" 
-          ? "Este e-mail já está cadastrado" 
-          : "Erro ao criar conta. Tente novamente.",
+        description: error.message || "Erro ao criar conta. Tente novamente.",
       });
     } else {
+      console.log('Cadastro realizado com sucesso');
       toast({
         title: "Conta criada com sucesso!",
-        description: "Verifique seu e-mail para confirmar a conta",
+        description: "Você pode fazer login agora",
       });
       setIsSignUp(false);
     }
