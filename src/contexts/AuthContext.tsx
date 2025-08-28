@@ -40,14 +40,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signUp = async (email: string, password: string, fullName?: string) => {
     console.log('Iniciando cadastro para:', email);
-    const redirectUrl = `${window.location.origin}/`;
     
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: redirectUrl,
           data: {
             full_name: fullName,
           }
@@ -55,6 +53,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
       
       console.log('Resultado do cadastro:', { data, error });
+      
+      // Se não houve erro, significa que foi criado com sucesso
+      if (!error && data.user) {
+        console.log('Usuário criado:', data.user);
+      }
+      
       return { error };
     } catch (err) {
       console.error('Erro no cadastro:', err);

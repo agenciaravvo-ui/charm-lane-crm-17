@@ -76,28 +76,57 @@ export default function Auth() {
   };
 
   const onSignUp = async (values: z.infer<typeof signUpSchema>) => {
-    console.log('Tentando cadastrar usuário:', values.email);
+    console.log('Formulário de cadastro submetido:', values);
     setLoading(true);
-    const { error } = await signUp(values.email, values.password, values.fullName);
     
-    console.log('Erro retornado:', error);
-    
-    if (error) {
-      console.error('Erro completo no cadastro:', error);
+    try {
+      const { error } = await signUp(values.email, values.password, values.fullName);
+      
+      console.log('Resposta do signUp:', { error });
+      
+      if (error) {
+        console.error('Erro detalhado no cadastro:', {
+          message: error.message,
+          status: error.status,
+          statusText: error.statusText
+        });
+        
+        let errorMessage = "Erro ao criar conta. Tente novamente.";
+        
+        if (error.message?.includes("already registered") || error.message?.includes("User already exists")) {
+          errorMessage = "Este e-mail já está cadastrado";
+        } else if (error.message?.includes("Invalid email")) {
+          errorMessage = "E-mail inválido";
+        } else if (error.message?.includes("Password")) {
+          errorMessage = "Senha muito simples. Use pelo menos 6 caracteres";
+        }
+        
+        toast({
+          variant: "destructive",
+          title: "Erro no cadastro",
+          description: errorMessage,
+        });
+      } else {
+        console.log('Cadastro realizado com sucesso');
+        toast({
+          title: "Conta criada com sucesso!",
+          description: "Você pode fazer login agora",
+        });
+        setIsSignUp(false);
+        
+        // Limpar formulário
+        signUpForm.reset();
+      }
+    } catch (err) {
+      console.error('Erro crítico no cadastro:', err);
       toast({
         variant: "destructive",
-        title: "Erro no cadastro",
-        description: error.message || "Erro ao criar conta. Tente novamente.",
+        title: "Erro crítico",
+        description: "Erro inesperado. Verifique sua conexão.",
       });
-    } else {
-      console.log('Cadastro realizado com sucesso');
-      toast({
-        title: "Conta criada com sucesso!",
-        description: "Você pode fazer login agora",
-      });
-      setIsSignUp(false);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
